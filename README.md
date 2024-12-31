@@ -8,7 +8,7 @@ Commande pour compiler le back:
 `gcc -Wall -Wextra -Werror main.c functions/back.c -o modus`
 
 
-libs nécessaire : SDL2, SDL2_ttf et SDL2_mixer 
+libs nécessaires : SDL2, SDL2_ttf et SDL2_mixer 
 
 commande pour compiler le front:
 
