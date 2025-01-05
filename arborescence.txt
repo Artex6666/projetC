@@ -1,0 +1,138 @@
+Structure du dossier pour le volume OS
+Le numéro de série du volume est 1015-C98E
+C:.
+¦   arborescence.txt
+¦   front_test.c
+¦   README.md
+¦   
++---assets
+¦   +---fonts
+¦   +---musics
+¦   ¦       background.wav
+¦   ¦       
+¦   +---sound_effects
+¦   +---words
+¦           liste_mots.txt
+¦           
++---include
+¦   ¦   back.h
+¦   ¦   front.h
+¦   ¦   
+¦   +---SDL
+¦           begin_code.h
+¦           close_code.h
+¦           SDL.h
+¦           SDL2_framerate.h
+¦           SDL2_gfxPrimitives.h
+¦           SDL2_imageFilter.h
+¦           SDL2_rotozoom.h
+¦           SDL_assert.h
+¦           SDL_atomic.h
+¦           SDL_audio.h
+¦           SDL_bits.h
+¦           SDL_blendmode.h
+¦           SDL_clipboard.h
+¦           SDL_config.h
+¦           SDL_config.h.cmake
+¦           SDL_config.h.in
+¦           SDL_config_macosx.h
+¦           SDL_config_minimal.h
+¦           SDL_config_ngage.h
+¦           SDL_config_os2.h
+¦           SDL_config_pandora.h
+¦           SDL_config_windows.h
+¦           SDL_config_wingdk.h
+¦           SDL_config_winrt.h
+¦           SDL_copying.h
+¦           SDL_cpuinfo.h
+¦           SDL_egl.h
+¦           SDL_endian.h
+¦           SDL_error.h
+¦           SDL_events.h
+¦           SDL_filesystem.h
+¦           SDL_gamecontroller.h
+¦           SDL_gesture.h
+¦           SDL_guid.h
+¦           SDL_hidapi.h
+¦           SDL_hints.h
+¦           SDL_image.h
+¦           SDL_joystick.h
+¦           SDL_keyboard.h
+¦           SDL_keycode.h
+¦           SDL_loadso.h
+¦           SDL_locale.h
+¦           SDL_log.h
+¦           SDL_main.h
+¦           SDL_messagebox.h
+¦           SDL_misc.h
+¦           SDL_mixer.h
+¦           SDL_mouse.h
+¦           SDL_mutex.h
+¦           SDL_name.h
+¦           SDL_opengl.h
+¦           SDL_opengles.h
+¦           SDL_opengles2.h
+¦           SDL_opengles2_gl2.h
+¦           SDL_opengles2_gl2ext.h
+¦           SDL_opengles2_gl2platform.h
+¦           SDL_opengles2_khrplatform.h
+¦           SDL_opengl_glext.h
+¦           SDL_pixels.h
+¦           SDL_platform.h
+¦           SDL_power.h
+¦           SDL_quit.h
+¦           SDL_rect.h
+¦           SDL_render.h
+¦           SDL_rwops.h
+¦           SDL_scancode.h
+¦           SDL_shape.h
+¦           SDL_stdinc.h
+¦           SDL_surface.h
+¦           SDL_system.h
+¦           SDL_syswm.h
+¦           SDL_test.h
+¦           SDL_test_assert.h
+¦           SDL_test_common.h
+¦           SDL_test_compare.h
+¦           SDL_test_crc32.h
+¦           SDL_test_font.h
+¦           SDL_test_fuzzer.h
+¦           SDL_test_harness.h
+¦           SDL_test_images.h
+¦           SDL_test_log.h
+¦           SDL_test_md5.h
+¦           SDL_test_memory.h
+¦           SDL_test_random.h
+¦           SDL_thread.h
+¦           SDL_timer.h
+¦           SDL_touch.h
+¦           SDL_ttf.h
+¦           SDL_types.h
+¦           SDL_version.h
+¦           SDL_video.h
+¦           SDL_vulkan.h
+¦           
++---lib
+¦       libavif-16.dll
+¦       libSDL2.a
+¦       libSDL2.dll.a
+¦       libSDL2main.a
+¦       libSDL2_gfx.a
+¦       libSDL2_mixer.a
+¦       libSDL2_mixer.dll.a
+¦       libSDL2_test.a
+¦       libSDL2_ttf.a
+¦       libSDL2_ttf.dll.a
+¦       libtiff-5.dll
+¦       libwebp-7.dll
+¦       libwebpdemux-2.dll
+¦       SDL2.dll
+¦       SDL2_image.dll
+¦       SDL2_mixer.dll
+¦       SDL2_ttf.dll
+¦       
++---src
+        back.c
+        front.c
+        main.c
+        

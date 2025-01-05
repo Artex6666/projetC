@@ -1,16 +1,16 @@
-#include </SDL2.h>
-#include <SDL2/SDL2_ttf.h>
-#include <SDL2/SDL2_mixer.h>
+#include "../include/SDL/SDL.h"
+#include "../include/SDL/SDL_ttf.h"
+#include "../include/SDL/SDL_mixer.h"
 #include <stdbool.h>
 #include <stdio.h>
-#include "front.h"
+#include "../include/front.h"
 
 #define WINDOW_WIDTH  640
 #define WINDOW_HEIGHT 480
 
 // Chemins vers tes ressources
-static const char* FONT_PATH         = "assets/font.ttf";
-static const char* BACKGROUND_MUSIC  = "assets/background.wav";
+static const char* FONT_PATH         = "assets/fonts/FranceTVBrown-Regular.ttf";
+static const char* BACKGROUND_MUSIC  = "assets/music/background.wav";
 
 int start_motus_front(void)
 {

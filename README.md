@@ -4,7 +4,7 @@ Commande pour compiler le back:
 
 `gcc -Wall -Wextra -Werror main.c functions/back.c -o motus_back`
 
-libs nécessaires : SDL2 2.30.11, SDL2_ttf 2.24.0, SDL2_mixer 2.8.0, SDL2_gfx et SDL2_image2.8.4.
+libs nécessaires : SDL2 2.30.11, SDL2_ttf 2.24.0, SDL2_mixer 2.8.0, SDL2_gfx 1.0.4 et SDL2_image2.8.4.
 
 commande pour compiler le front:
 
