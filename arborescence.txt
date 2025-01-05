@@ -2,11 +2,13 @@ Structure du dossier pour le volume OS
 Le numéro de série du volume est 1015-C98E
 C:.
 ¦   arborescence.txt
-¦   front_test.c
+¦   Makefile
 ¦   README.md
 ¦   
 +---assets
 ¦   +---fonts
+¦   ¦       FranceTVBrown-Regular.ttf
+¦   ¦       
 ¦   +---musics
 ¦   ¦       background.wav
 ¦   ¦       
@@ -14,6 +16,9 @@ C:.
 ¦   +---words
 ¦           liste_mots.txt
 ¦           
++---build
+¦       back.o
+¦       
 +---include
 ¦   ¦   back.h
 ¦   ¦   front.h
@@ -35,6 +40,9 @@ C:.
 ¦           SDL_config.h
 ¦           SDL_config.h.cmake
 ¦           SDL_config.h.in
+¦           SDL_config_android.h
+¦           SDL_config_emscripten.h
+¦           SDL_config_iphoneos.h
 ¦           SDL_config_macosx.h
 ¦           SDL_config_minimal.h
 ¦           SDL_config_ngage.h
@@ -43,6 +51,7 @@ C:.
 ¦           SDL_config_windows.h
 ¦           SDL_config_wingdk.h
 ¦           SDL_config_winrt.h
+¦           SDL_config_xbox.h
 ¦           SDL_copying.h
 ¦           SDL_cpuinfo.h
 ¦           SDL_egl.h
@@ -53,6 +62,7 @@ C:.
 ¦           SDL_gamecontroller.h
 ¦           SDL_gesture.h
 ¦           SDL_guid.h
+¦           SDL_haptic.h
 ¦           SDL_hidapi.h
 ¦           SDL_hints.h
 ¦           SDL_image.h
@@ -64,6 +74,7 @@ C:.
 ¦           SDL_log.h
 ¦           SDL_main.h
 ¦           SDL_messagebox.h
+¦           SDL_metal.h
 ¦           SDL_misc.h
 ¦           SDL_mixer.h
 ¦           SDL_mouse.h
@@ -83,8 +94,11 @@ C:.
 ¦           SDL_quit.h
 ¦           SDL_rect.h
 ¦           SDL_render.h
+¦           SDL_revision.h
+¦           SDL_revision.h.cmake
 ¦           SDL_rwops.h
 ¦           SDL_scancode.h
+¦           SDL_sensor.h
 ¦           SDL_shape.h
 ¦           SDL_stdinc.h
 ¦           SDL_surface.h
@@ -132,7 +146,12 @@ C:.
 ¦       SDL2_ttf.dll
 ¦       
 +---src
-        back.c
-        front.c
-        main.c
+¦       back.c
+¦       front.c
+¦       main.c
+¦       
++---test
+        front_test.c
+        front_test.exe
+        Makefile
         

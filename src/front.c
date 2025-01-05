@@ -3,12 +3,10 @@
 #include "../include/SDL/SDL_mixer.h"
 #include <stdbool.h>
 #include <stdio.h>
-#include "../include/front.h"
 
-#define WINDOW_WIDTH  640
-#define WINDOW_HEIGHT 480
+#define WINDOW_WIDTH  800
+#define WINDOW_HEIGHT 600
 
-// Chemins vers tes ressources
 static const char* FONT_PATH         = "assets/fonts/FranceTVBrown-Regular.ttf";
 static const char* BACKGROUND_MUSIC  = "assets/music/background.wav";
 
@@ -19,14 +17,14 @@ int start_motus_front(void)
         fprintf(stderr, "Erreur SDL_Init : %s\n", SDL_GetError());
         return 1;
     }
-
+    // Initialisation de SDL_ttf
     if (TTF_Init() == -1) {
         fprintf(stderr, "Erreur TTF_Init : %s\n", TTF_GetError());
         SDL_Quit();
         return 1;
     }
 
-    // Initialisation de la partie audio
+    // Initialisation de SDL_mixer
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
         fprintf(stderr, "Erreur Mix_OpenAudio : %s\n", Mix_GetError());
         TTF_Quit();
@@ -35,7 +33,7 @@ int start_motus_front(void)
     }
 
     // Création de la fenêtre
-    SDL_Window* ecran = SDL_CreateWindow("Motus", SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    SDL_Window* ecran = SDL_CreateWindow("Motus", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     if (!ecran) {
         fprintf(stderr, "Erreur création fenêtre : %s\n", SDL_GetError());
         Mix_CloseAudio();
@@ -43,9 +41,10 @@ int start_motus_front(void)
         SDL_Quit();
         return 1;
     }
+    
 
     // Création du renderer
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    SDL_Renderer* renderer = SDL_CreateRenderer(ecran, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer) {
         fprintf(stderr, "Erreur création renderer : %s\n", SDL_GetError());
         SDL_DestroyWindow(ecran);
@@ -114,7 +113,7 @@ int start_motus_front(void)
         }
 
         // Effacer l'écran
-        SDL_SetRenderDrawColor(36, 170, 252, 255); // Bleu comme les carré du jeu TV Motus
+        SDL_SetRenderDrawColor(renderer, 36, 170, 252, 255); // Bleu comme les carré du jeu TV Motus
         SDL_RenderClear(renderer);
 
         // Dessiner l'interface
@@ -173,7 +172,7 @@ int start_motus_front(void)
     TTF_CloseFont(font);
 
     SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
+    SDL_DestroyWindow(ecran);
 
     Mix_CloseAudio();
     TTF_Quit();
