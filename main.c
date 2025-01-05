@@ -2,13 +2,14 @@
 #include <stdlib.h>
 #include "functions/back.h"
 
-char* get_random_word();
-
 int main() {
-    char* word = get_random_word();
+    const char* difficulty = "hard"; 
+    char* word = get_random_word(difficulty); 
     if (word != NULL) {
-        printf("Mot aléatoire : %s\n", word);
+        printf("Mot aléatoire (difficulté %s) : %s\n", difficulty, word);
         free(word);
+    } else {
+        printf("Aucun mot trouvé pour cette difficulté.\n");
     }
     return 0;
 }
