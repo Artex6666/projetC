@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "../include/back.h"
 #include "../include/front.h"  // pour start_motus_front()
@@ -10,7 +11,7 @@ int main(int argc, char* argv[]) {
         return start_motus_front();
     } else {
         // Lancer la version console “classique”
-        char* secret_word = get_random_word();
+        char* secret_word = get_random_word(argv[0]);
         if (!secret_word) {
             printf("Impossible de récupérer un mot.\n");
             return 1;

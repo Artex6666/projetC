@@ -6,7 +6,7 @@
 #include <windows.h>
 
 #define MAX_WORD_LENGTH 100
-#define FILE_PATH "../assets/words/liste_mots.txt"
+#define FILE_PATH "features/liste_mots.txt"
 
 static int calculate_difficulty(const char* word) {
     //printf("Calcul de la difficulté pour le mot : %s\n", word);
@@ -37,6 +37,15 @@ static int calculate_difficulty(const char* word) {
     //printf("Difficulté calculée : %d (longueur : %d, lettres distinctes : %d, voyelles : %d, consonnes : %d)\n",
     //       difficulty, length, distinct_count, voyelles, consonnes);
     return difficulty;
+}
+
+static void toUpperCase(const char* input, char* output, int max_length) {
+    int i = 0;
+    while (input[i] != '\0' && i < max_length - 1) {
+        output[i] = toupper(input[i]);
+        i++;
+    }
+    output[i] = '\0'; 
 }
 
 char* get_random_word(const char* difficulty) {
@@ -73,25 +82,15 @@ char* get_random_word(const char* difficulty) {
     srand(time(NULL) + GetCurrentProcessId());
     int random_index;
 
-    while (1) {
-        
+    while (1) {   
         random_index = rand() % word_count;
-
-        printf("random_index: %d\n",random_index);
-        printf("word_count: %d\n",word_count);
         char* random_word = words[random_index];  
-
         int difficulty_score = calculate_difficulty(random_word);
 
-        printf("%d",difficulty_score);
         return random_word;  
     }
 
 }
-
-
-
-
 
 int is_valid_word(const char* word) {
     FILE* file = fopen(FILE_PATH, "r");
@@ -100,10 +99,13 @@ int is_valid_word(const char* word) {
         return 0; 
     }
 
+    char upper_word[MAX_WORD_LENGTH];
+    toUpperCase(word, upper_word, MAX_WORD_LENGTH);
+
     char line[MAX_WORD_LENGTH];
     while (fgets(line, sizeof(line), file) != NULL) {
         line[strcspn(line, "\n")] = '\0'; 
-        if (strcmp(word, line) == 0) {
+        if (strcmp(upper_word, line) == 0) {
             fclose(file);
             return 1; 
         }
@@ -118,8 +120,11 @@ void check_word(const char* guess, const char* secret, int* result) {
     int used_positions[length];
     memset(used_positions, 0, sizeof(used_positions)); 
 
+    char upper_guess[MAX_WORD_LENGTH];
+    toUpperCase(guess, upper_guess, MAX_WORD_LENGTH);
+
     for (int i = 0; i < length; i++) {
-        if (guess[i] == secret[i]) {
+        if (upper_guess[i] == secret[i]) {
             result[i] = 2; 
             used_positions[i] = 1; 
         } else {
@@ -131,7 +136,7 @@ void check_word(const char* guess, const char* secret, int* result) {
         if (result[i] == 2) continue; 
 
         for (int j = 0; j < length; j++) {
-            if (!used_positions[j] && guess[i] == secret[j]) {
+            if (!used_positions[j] && upper_guess[i] == secret[j]) {
                 result[i] = 1;
                 used_positions[j] = 1; 
                 break;

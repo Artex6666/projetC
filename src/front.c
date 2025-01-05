@@ -7,8 +7,8 @@
 #define WINDOW_WIDTH  800
 #define WINDOW_HEIGHT 600
 
-static const char* FONT_PATH         = "assets/fonts/FranceTVBrown-Regular.ttf";
-static const char* BACKGROUND_MUSIC  = "assets/music/background.wav";
+static const char* FONT_PATH         = "./assets/fonts/FranceTVBrown-Regular.ttf";
+static const char* BACKGROUND_MUSIC  = "./assets/musics/background.wav";
 
 int start_motus_front(void)
 {
