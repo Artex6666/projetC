@@ -127,7 +127,7 @@ int start_motus_front(void)
         SDL_GetWindowSize(window, &width, &height);
         int width_screen = width, height_screen = height; 
         SDL_QueryTexture(textureText, NULL, NULL, &width, &height);
-        SDL_Rect dstRect = { (width_screen / 2) - (width_screen / 16), (height_screen * 0.05), width_screen / 8, height_screen / 10};
+        SDL_Rect dstRect = { (width_screen / 2) - (width_screen / 16), (height_screen * 0.05), width_screen / 8, height_screen / 12};
         printf("W : %d H : %d", width_screen, height_screen);
 
         // Blit du texte
@@ -161,7 +161,7 @@ int start_motus_front(void)
         SDL_RenderPresent(renderer);
 
         // Pour éviter de saturer le CPU
-        SDL_Delay(30);
+        SDL_Delay(50);
     }
 
     Mix_HaltMusic();
