@@ -1,22 +1,18 @@
 # Compilateur et options
 CC = gcc
-CFLAGS = -Iinclude -Wall -Wextra -g
-LDFLAGS = -Llib -lSDL2 -lSDL2_ttf -lSDL2_mixer -lSDL2_gfx
+CFLAGS = -I../include -Wall -Wextra -g -DSDL_MAIN_HANDLED
+LDFLAGS = -L../lib -lmingw32 -lSDL2 -lSDL2main -lSDL2_ttf -lSDL2_mixer -lSDL2_gfx
 
-# Fichiers source
+# Fichier source et cible
 SRC = front_test.c
-
-# Nom de l'exécutable
-TARGET = front_test
+TARGET = front_test.exe
 
 # Règles
 all: $(TARGET)
 
-# Compilation de l'exécutable
 $(TARGET): $(SRC)
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
-# Nettoyage des fichiers générés
 clean:
 	rm -f $(TARGET)
 

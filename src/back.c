@@ -6,7 +6,7 @@
 #include <windows.h>
 
 #define MAX_WORD_LENGTH 100
-#define FILE_PATH "features/liste_mots.txt"
+#define FILE_PATH "assets/words/liste_mots.txt"
 
 static int calculate_difficulty(const char* word) {
     //printf("Calcul de la difficulté pour le mot : %s\n", word);

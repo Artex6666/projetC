@@ -3,6 +3,7 @@ Le numéro de série du volume est 1015-C98E
 C:.
 ¦   arborescence.txt
 ¦   Makefile
+¦   motus.exe
 ¦   README.md
 ¦   
 +---assets
@@ -14,10 +15,13 @@ C:.
 ¦   ¦       
 ¦   +---sound_effects
 ¦   +---words
+¦           liste_mots(old).txt
 ¦           liste_mots.txt
 ¦           
 +---build
 ¦       back.o
+¦       front.o
+¦       main.o
 ¦       
 +---include
 ¦   ¦   back.h
@@ -151,7 +155,7 @@ C:.
 ¦       main.c
 ¦       
 +---test
+        arborescence.txt
         front_test.c
-        front_test.exe
         Makefile
         

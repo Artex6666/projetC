@@ -1,6 +1,7 @@
 #include "../include/SDL/SDL.h"
 #include "../include/SDL/SDL_ttf.h"
 #include "../include/SDL/SDL_mixer.h"
+#include "../include/SDL/SDL_render.h"
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -31,8 +32,8 @@ int start_motus_front(void)
     }
 
     // Création de la fenêtre
-    SDL_Window* ecran = SDL_CreateWindow("Motus", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
-    if (!ecran) {
+    SDL_Window* window = SDL_CreateWindow("Motus", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    if (!window) {
         fprintf(stderr, "Erreur création fenêtre : %s\n", SDL_GetError());
         Mix_CloseAudio();
         TTF_Quit();
@@ -42,10 +43,10 @@ int start_motus_front(void)
     
 
     // Création du renderer
-    SDL_Renderer* renderer = SDL_CreateRenderer(ecran, -1, SDL_RENDERER_ACCELERATED);
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer) {
         fprintf(stderr, "Erreur création renderer : %s\n", SDL_GetError());
-        SDL_DestroyWindow(ecran);
+        SDL_DestroyWindow(window);
         Mix_CloseAudio();
         TTF_Quit();
         SDL_Quit();
@@ -57,7 +58,7 @@ int start_motus_front(void)
     if (!font) {
         fprintf(stderr, "Erreur chargement police : %s\n", TTF_GetError());
         SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(ecran);
+        SDL_DestroyWindow(window);
         Mix_CloseAudio();
         TTF_Quit();
         SDL_Quit();
@@ -70,7 +71,7 @@ int start_motus_front(void)
         fprintf(stderr, "Erreur chargement musique : %s\n", Mix_GetError());
         TTF_CloseFont(font);
         SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(ecran);
+        SDL_DestroyWindow(window);
         Mix_CloseAudio();
         TTF_Quit();
         SDL_Quit();
@@ -83,7 +84,7 @@ int start_motus_front(void)
         Mix_FreeMusic(music);
         TTF_CloseFont(font);
         SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(ecran);
+        SDL_DestroyWindow(window);
         Mix_CloseAudio();
         TTF_Quit();
         SDL_Quit();
@@ -122,11 +123,12 @@ int start_motus_front(void)
         SDL_Texture* textureText = SDL_CreateTextureFromSurface(renderer, surfaceText);
 
         // Récupère la taille du texte
-        int textW = 0, textH = 0;
-        void SDL_GetWindowSize(SDL_Window * window, int *textW, int *textH);
-        SDL_QueryTexture(textureText, NULL, NULL, &textW, &textH);
-        SDL_Rect dstRect = { (WINDOW_WIDTH - textW) / 2, 50, textW, textH };
-        printf("W : %d H : %d", textW, textH);
+        int width = 0, height = 0;
+        SDL_GetWindowSize(window, &width, &height);
+        int width_screen = width, height_screen = height; 
+        SDL_QueryTexture(textureText, NULL, NULL, &width, &height);
+        SDL_Rect dstRect = { (width_screen / 2) - (width_screen / 16), (height_screen * 0.05), width_screen / 8, height_screen / 10};
+        printf("W : %d H : %d", width_screen, height_screen);
 
         // Blit du texte
         SDL_RenderCopy(renderer, textureText, NULL, &dstRect);
@@ -135,14 +137,12 @@ int start_motus_front(void)
         SDL_FreeSurface(surfaceText);
         SDL_DestroyTexture(textureText);
 
-        // 2. Exemple d’affichage d’une “grille”
-        // (juste des cases vides pour illustrer)
         int gridRows = 6;
         int gridCols = 5;
         int cellWidth  = 40;
         int cellHeight = 40;
-        int startX = (WINDOW_WIDTH  - gridCols * cellWidth)  / 2;
-        int startY = (WINDOW_HEIGHT - gridRows * cellHeight) / 2;
+        int startX = (800  - gridCols * cellWidth)  / 2;
+        int startY = (600 - gridRows * cellHeight) / 2;
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // couleur rouge
 
         for (int row = 0; row < gridRows; row++) {
@@ -161,14 +161,14 @@ int start_motus_front(void)
         SDL_RenderPresent(renderer);
 
         // Pour éviter de saturer le CPU
-        SDL_Delay(16); // ~60 FPS
+        SDL_Delay(30);
     }
 
     Mix_HaltMusic();
     Mix_FreeMusic(music);
     TTF_CloseFont(font);
     SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(ecran);
+    SDL_DestroyWindow(window);
     Mix_CloseAudio();
     TTF_Quit();
     SDL_Quit();
