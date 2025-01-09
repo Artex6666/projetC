@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
         return start_motus_front();
     } else {
         // Lancer la version console “classique”
-        char* secret_word = get_random_word(argv[0]);
+        char* secret_word = get_random_word(argv[1]);
         if (!secret_word) {
             printf("Impossible de récupérer un mot.\n");
             return 1;

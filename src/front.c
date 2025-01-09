@@ -4,8 +4,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#define WINDOW_WIDTH  800
-#define WINDOW_HEIGHT 600
 
 static const char* FONT_PATH         = "./assets/fonts/FranceTVBrown-Regular.ttf";
 static const char* BACKGROUND_MUSIC  = "./assets/musics/background.wav";
@@ -125,8 +123,10 @@ int start_motus_front(void)
 
         // Récupère la taille du texte
         int textW = 0, textH = 0;
+        void SDL_GetWindowSize(SDL_Window * window, int *textW, int *textH);
         SDL_QueryTexture(textureText, NULL, NULL, &textW, &textH);
         SDL_Rect dstRect = { (WINDOW_WIDTH - textW) / 2, 50, textW, textH };
+        printf("W : %d H : %d", textW, textH);
 
         // Blit du texte
         SDL_RenderCopy(renderer, textureText, NULL, &dstRect);
@@ -164,19 +164,13 @@ int start_motus_front(void)
         SDL_Delay(16); // ~60 FPS
     }
 
-    // -----------------------
-    // Nettoyage et fermeture
-    // -----------------------
     Mix_HaltMusic();
     Mix_FreeMusic(music);
     TTF_CloseFont(font);
-
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(ecran);
-
     Mix_CloseAudio();
     TTF_Quit();
     SDL_Quit();
-
     return 0;
 }
