@@ -1,6 +1,7 @@
 #include "../include/front/menu.h"
 #include "../include/SDL/SDL.h"
 #include "../include/SDL/SDL_ttf.h"
+#include "../include/SDL/SDL_mixer.h"  // Inclure SDL_mixer pour gérer les sons
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -12,12 +13,20 @@ int afficher_menu_difficulte(SDL_Renderer* renderer, TTF_Font* police) {
     int nombre_options = 3;
     int selection = 0;  // Index de l'option sélectionnée
 
+    // Charger le son de bruitage
+    Mix_Chunk* bruitage = Mix_LoadWAV("./assets/musics/bruitage-menu.wav");
+    if (!bruitage) {
+        fprintf(stderr, "Erreur chargement bruitage : %s\n", Mix_GetError());
+        // Vous pouvez choisir de continuer sans son ou de retourner une erreur
+    }
+
     bool actif = true;
     SDL_Event evenement;
 
     while (actif) {
         while (SDL_PollEvent(&evenement)) {
             if (evenement.type == SDL_QUIT) {
+                if (bruitage) Mix_FreeChunk(bruitage);  // Libérer le son avant de quitter
                 return -1;  // Quitter le jeu
             } else if (evenement.type == SDL_KEYDOWN) {
                 switch (evenement.key.keysym.sym) {
@@ -27,6 +36,8 @@ int afficher_menu_difficulte(SDL_Renderer* renderer, TTF_Font* police) {
                         if (selection < 0) {
                             selection = nombre_options - 1;  // Revenir à la dernière option
                         }
+                        // Jouer le son de bruitage
+                        if (bruitage) Mix_PlayChannel(-1, bruitage, 0);
                         break;
                     case SDLK_DOWN:
                         // Déplacer la sélection vers le bas
@@ -34,9 +45,12 @@ int afficher_menu_difficulte(SDL_Renderer* renderer, TTF_Font* police) {
                         if (selection >= nombre_options) {
                             selection = 0;  // Revenir à la première option
                         }
+                        // Jouer le son de bruitage
+                        if (bruitage) Mix_PlayChannel(-1, bruitage, 0);
                         break;
                     case SDLK_RETURN:
                         // Valider la sélection
+                        if (bruitage) Mix_FreeChunk(bruitage);  // Libérer le son avant de retourner
                         switch (selection) {
                             case 0:
                                 return 5 * 60 * 1000;  // 5 minutes
@@ -47,6 +61,7 @@ int afficher_menu_difficulte(SDL_Renderer* renderer, TTF_Font* police) {
                         }
                         break;
                     case SDLK_ESCAPE:
+                        if (bruitage) Mix_FreeChunk(bruitage);  // Libérer le son avant de quitter
                         return -1;  // Quitter le menu
                 }
             }
@@ -80,5 +95,6 @@ int afficher_menu_difficulte(SDL_Renderer* renderer, TTF_Font* police) {
         SDL_RenderPresent(renderer);
     }
 
+    if (bruitage) Mix_FreeChunk(bruitage);  // Libérer le son avant de retourner
     return -1;  // Ne devrait jamais être atteint
 }
