@@ -7,4 +7,8 @@ int is_valid_word(const char* word);
 
 void check_word(const char* guess, const char* secret, int* result);
 
+int getUsersCoin(void);
+
+void addUsersCoin(int pieces);
+
 #endif 
