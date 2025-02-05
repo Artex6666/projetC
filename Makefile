@@ -4,10 +4,8 @@ CC = gcc
 # Options de compilation
 CFLAGS = -Iinclude -Wall -Wextra -g -DSDL_MAIN_HANDLED
 
-
-# Options de liaison (SDL2, SDL2_ttf, SDL2_mixer, SDL2_gfx, SDL2_image)
-LDFLAGS = -Llib -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_mixer -lSDL2_gfx -lSDL2_image
-
+# Options de liaison (SDL2, SDL2_ttf, SDL2_mixer, SDL2_gfx, SDL2_image, ENet)
+LDFLAGS = -Llib -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_mixer -lSDL2_gfx -lSDL2_image -lenet
 
 # Répertoires
 SRC_DIR = src
@@ -27,14 +25,30 @@ OBJS_MAIN = $(SRCS_MAIN:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 OBJS = $(OBJS_BACK) $(OBJS_FRONT) $(OBJS_MAIN)
 
-# Nom de l'exécutable
+# Ajout des fichiers spécifiques pour le client et le serveur
+CLIENT_SRC = $(SRC_DIR)/client.c
+CLIENT_OBJ = $(OBJ_DIR)/client.o
+SERVEUR_SRC = $(SRC_DIR)/serveur.c
+SERVEUR_OBJ = $(OBJ_DIR)/serveur.o
+
+# Noms des exécutables
 TARGET = motus
+BIN_CLIENT = client
+BIN_SERVEUR = serveur
 
-# Règle par défaut
-all: $(TARGET)
+# Règle par défaut : compile tout
+all: $(TARGET) $(BIN_CLIENT) $(BIN_SERVEUR)
 
-# Compilation de l'exécutable
+# Compilation de l'exécutable principal (jeu)
 $(TARGET): $(OBJS)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+# Compilation du client
+$(BIN_CLIENT): $(CLIENT_OBJ)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+# Compilation du serveur
+$(BIN_SERVEUR): $(SERVEUR_OBJ)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 # Compilation des fichiers objets pour le back-end
@@ -52,9 +66,18 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+# Compilation des fichiers objets pour le client et le serveur
+$(OBJ_DIR)/client.o: $(SRC_DIR)/client.c
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/serveur.o: $(SRC_DIR)/serveur.c
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
 # Nettoyage des fichiers générés
 clean:
-	rm -rf $(OBJ_DIR) $(TARGET)
+	rm -rf $(OBJ_DIR) $(TARGET) $(BIN_CLIENT) $(BIN_SERVEUR)
 
 # Nettoyage complet (y compris les fichiers de sortie dans assets/output)
 mrproper: clean
